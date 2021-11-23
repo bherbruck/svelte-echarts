@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+
+		
+
+		<link rel="modulepreload" href="/_app/start-bbdc6130.js">
+		<link rel="modulepreload" href="/_app/chunks/vendor-558f96cb.js">
+		<link rel="modulepreload" href="/_app/pages/__layout.svelte-2ae68abf.js">
+		<link rel="modulepreload" href="/_app/pages/index.svelte-8beab532.js">
+		<link rel="modulepreload" href="/_app/chunks/Chart-3c18ff1b.js">
+		<link rel="stylesheet" href="/_app/assets/start-61d1577b.css">
+		<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-ffd837dd.css">
+		<link rel="stylesheet" href="/_app/assets/pages/index.svelte-e032cbea.css">
+		<link rel="stylesheet" href="/_app/assets/Chart-5dc46135.css">
+
+		<script type="module">
+			import { start } from "/_app/start-bbdc6130.js";
+			start({
+				target: document.querySelector("#svelte"),
+				paths: {"base":"","assets":""},
+				session: {},
+				host: location.host,
+				route: true,
+				spa: false,
+				trailing_slash: "never",
+				hydrate: {
+					status: 200,
+					error: null,
+					nodes: [
+						import("/_app/pages/__layout.svelte-2ae68abf.js"),
+						import("/_app/pages/index.svelte-8beab532.js")
+					],
+					page: {
+						host: location.host, // TODO this is redundant
+						path: "\u002F",
+						query: new URLSearchParams(""),
+						params: {}
+					}
+				}
+			});
+		</script>
+  </head>
+  <body>
+    <div id="svelte">
+
+
+<div class="app svelte-1nxo4g3"><div class="flex-container svelte-1nxo4g3"><div class="controls-container svelte-1nxo4g3"><div class="control svelte-1nxo4g3"><span>Values</span>
+        <input type="number" value="10"></div>
+
+      <div class="control svelte-1nxo4g3"><span>Max Value</span>
+        <input type="number" value="100"></div></div>
+
+    <div class="chart svelte-sg3l42"></div></div>
+</div>
+
+
+
+			
+		</div>
+  </body>
+</html>
