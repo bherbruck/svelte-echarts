@@ -5,7 +5,7 @@ A simple ECharts component for Svelte
 ## 💿 Installation
 
 ```bash
-npm i -D svelte-echarts
+npm i -D svelte-echarts echarts
 ```
 
 ## ⌨️ Usage
