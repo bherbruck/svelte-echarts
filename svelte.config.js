@@ -1,8 +1,7 @@
 import preprocess from 'svelte-preprocess'
 import adapter from '@sveltejs/adapter-static'
-import { name as packageName } from './package.json'
 
-const ROOT_ROUTE = `/${packageName}`
+const ROOT_ROUTE = '/svelte-echarts'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
