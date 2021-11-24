@@ -1,7 +1,12 @@
 import preprocess from 'svelte-preprocess'
 import adapter from '@sveltejs/adapter-static'
 
-const ROOT_ROUTE = '/svelte-echarts'
+// check for if we are in a github actions environment
+// if so, we need to use a different path for the static files
+const paths =
+  Boolean(process.env.GITHUB_ACTIONS) || true
+    ? { base: '/svelte-echarts' }
+    : undefined
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -13,10 +18,7 @@ const config = {
     // hydrate the <div id="svelte"> element in src/app.html
     target: '#svelte',
     adapter: adapter(),
-    paths: {
-      assets: ROOT_ROUTE,
-      base: ROOT_ROUTE,
-    },
+    paths,
   },
 }
 
