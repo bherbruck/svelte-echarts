@@ -1,6 +1,6 @@
 # svelte-echarts
 
-A simple ECharts component for Svelte
+A simple [ECharts](https://echarts.apache.org/) component for [Svelte](https://svelte.dev/)! Check out this [demo](https://bherbruck.github.io/svelte-echarts/).
 
 ## 💿 Installation
 
@@ -8,7 +8,7 @@ A simple ECharts component for Svelte
 npm i -D svelte-echarts echarts
 ```
 
-## ⌨️ Usage
+## ⌨️ Usage [demo](https://bherbruck.github.io/svelte-echarts/minimal/)
 
 ```html
 <script>
