@@ -12,7 +12,7 @@ npm i -D svelte-echarts echarts
 
 ```html
 <script>
-  import { Chart } from '$lib'
+  import { Chart } from 'svelte-echarts'
 
   const options = {
     xAxis: {
