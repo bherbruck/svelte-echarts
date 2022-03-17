@@ -1,6 +1,7 @@
 {
   "name": "svelte-echarts",
   "version": "0.0.4",
+  "license": "MIT",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
