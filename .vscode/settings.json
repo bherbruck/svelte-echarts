@@ -12,10 +12,5 @@
     "a11y-missing-attribute": "ignore",
     "a11y-label-has-associated-control": "ignore"
   },
-  "cSpell.words": [
-    "chartable",
-    "echart",
-    "echarts",
-    "sveltejs"
-  ]
+  "cSpell.words": ["chartable", "echart", "echarts", "sveltejs"]
 }
