@@ -19,8 +19,7 @@
     "esbenp.prettier-vscode",
     "GitHub.copilot",
     "svelte.svelte-vscode",
-    "ardenivanov.svelte-intellisense",
-    "cschleiden.vscode-github-actions"
+    "ardenivanov.svelte-intellisense"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
