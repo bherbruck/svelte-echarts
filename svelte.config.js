@@ -3,10 +3,9 @@ import adapter from '@sveltejs/adapter-static'
 
 // check for if we are in a github actions environment
 // if so, we need to use a different path for the static files
-const paths = Boolean(process.env.GITHUB_ACTIONS)
+const paths = process.env.GITHUB_ACTIONS
   ? {
       base: '/svelte-echarts',
-      assets: 'https://bherbruck.github.io/svelte-echarts',
     }
   : undefined
 
@@ -18,6 +17,7 @@ const config = {
 
   kit: {
     adapter: adapter(),
+    prerender: { default: true },
     paths,
   },
 }
