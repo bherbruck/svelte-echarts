@@ -1,7 +1,7 @@
-<script>
-  import { Chart } from '$lib'
+<script lang="ts">
+  import { Chart, EChartsOptions } from '$lib'
 
-  const options = {
+  const options: EChartsOptions = {
     xAxis: {
       data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       type: 'category',
