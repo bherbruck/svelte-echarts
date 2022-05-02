@@ -2,6 +2,10 @@
   "name": "svelte-echarts",
   "version": "0.0.4",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bherbruck/svelte-echarts"
+  },
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
