@@ -1,6 +1,6 @@
 # svelte-echarts
 
-A simple [ECharts](https://echarts.apache.org/) component for [Svelte](https://svelte.dev/)! Check out this [demo](https://bherbruck.github.io/svelte-echarts/).
+A simple [Apache ECharts](https://echarts.apache.org/) component for [Svelte](https://svelte.dev/)! Check out this [demo](https://bherbruck.github.io/svelte-echarts/).
 
 ## 💿 Installation
 
