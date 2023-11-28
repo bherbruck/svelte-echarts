@@ -8,7 +8,7 @@ A simple [Apache ECharts](https://echarts.apache.org/) component for [Svelte](ht
 npm i -D svelte-echarts echarts
 ```
 
-## ⌨️ Usage [demo](https://bherbruck.github.io/svelte-echarts/minimal/)
+## ⌨️ Usage [demo](https://bherbruck.github.io/svelte-echarts/)
 
 ```html
 <script lang="ts">
