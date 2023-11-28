@@ -1,24 +1,23 @@
-import preprocess from 'svelte-preprocess'
 import adapter from '@sveltejs/adapter-static'
-
-// check for if we are in a github actions environment
-// if so, we need to use a different path for the static files
-const paths = process.env.GITHUB_ACTIONS
-  ? {
-      base: '/svelte-echarts',
-    }
-  : undefined
+import { vitePreprocess } from '@sveltejs/kit/vite'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  // Consult https://github.com/sveltejs/svelte-preprocess
+  // Consult https://kit.svelte.dev/docs/integrations#preprocessors
   // for more information about preprocessors
-  preprocess: preprocess(),
+  preprocess: vitePreprocess(),
 
   kit: {
-    adapter: adapter(),
-    prerender: { default: true },
-    paths,
+    // adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
+    // If your environment is not supported or you settled on a specific environment, switch out the adapter.
+    // See https://kit.svelte.dev/docs/adapters for more information about adapters.
+    adapter: adapter({
+      // pages: 'build',
+      // assets: 'build',
+      fallback: undefined,
+      precompress: false,
+      strict: false,
+    }),
   },
 }
 
