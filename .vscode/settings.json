@@ -1,16 +1,3 @@
 {
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "**/node_modules": true
-  },
-  "svelte.plugin.svelte.compilerWarnings": {
-    "a11y-missing-attribute": "ignore",
-    "a11y-label-has-associated-control": "ignore"
-  },
-  "cSpell.words": ["chartable", "echart", "echarts", "sveltejs"]
+  "svelte.enable-ts-plugin": true
 }

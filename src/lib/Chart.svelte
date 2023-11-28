@@ -1,8 +1,6 @@
 <script lang="ts" context="module">
   import * as echarts from 'echarts'
 
-  export { echarts }
-
   export type EChartsOptions = echarts.EChartsOption
   export type EChartsTheme = string | object
   export type EChartsRenderer = 'canvas' | 'svg'

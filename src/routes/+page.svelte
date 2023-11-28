@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Chart, EChartsOptions } from '$lib'
+  import { Chart, type EChartsOptions } from '$lib'
 
   const options: EChartsOptions = {
     xAxis: {
