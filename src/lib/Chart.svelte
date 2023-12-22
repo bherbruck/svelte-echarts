@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import * as echarts from 'echarts/core'
+  import * as echarts from 'echarts/core.js'
 
   export type EChartsOptions = echarts.EChartsCoreOption
   export type EChartsTheme = string | object
