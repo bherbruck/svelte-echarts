@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
-  import * as echarts from 'echarts'
+  import * as echarts from 'echarts/core'
 
-  export type EChartsOptions = echarts.EChartsOption
+  export type EChartsOptions = echarts.EChartsCoreOption
   export type EChartsTheme = string | object
   export type EChartsRenderer = 'canvas' | 'svg'
 
@@ -16,12 +16,17 @@
     renderer: 'canvas',
   }
 
-  export function chartable(element: HTMLElement, echartOptions: ChartOptions) {
+  export async function chartable(
+    element: HTMLElement,
+    echartOptions: ChartOptions,
+  ) {
     const { theme, renderer, options } = {
       ...DEFAULT_OPTIONS,
       ...echartOptions,
     }
-    const echartsInstance = echarts.init(element, theme, { renderer })
+    const echartsInstance = echarts.init(element, theme, {
+      renderer,
+    })
     echartsInstance.setOption(options)
 
     function handleResize() {
@@ -46,7 +51,7 @@
 </script>
 
 <script lang="ts">
-  export let options: echarts.EChartsOption
+  export let options: echarts.EChartsCoreOption
   export let { theme, renderer } = DEFAULT_OPTIONS
 </script>
 
