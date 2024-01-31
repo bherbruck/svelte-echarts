@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
-  import * as echarts from 'echarts/core.js'
+  import * as echarts from 'echarts/core'
 
-  export type EChartsOptions = echarts.EChartsCoreOption
+  export type EChartsOptions = EChartsCoreOption
   export type EChartsTheme = string | object
   export type EChartsRenderer = 'canvas' | 'svg'
 
@@ -51,7 +51,7 @@
 </script>
 
 <script lang="ts">
-  export let options: echarts.EChartsCoreOption
+  export let options: EChartsCoreOption
   export let { theme, renderer } = DEFAULT_OPTIONS
 </script>
 
