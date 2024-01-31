@@ -1,4 +1,10 @@
 <script lang="ts">
+  import * as echarts from 'echarts/core'
+  import { BarChart } from 'echarts/charts'
+  import { GridComponent } from 'echarts/components'
+  import { CanvasRenderer } from 'echarts/renderers'
+  echarts.use([BarChart, GridComponent, CanvasRenderer])
+
   import { Chart, type EChartsOptions } from '$lib'
 
   const options: EChartsOptions = {
