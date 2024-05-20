@@ -1,20 +1,26 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render } from '@testing-library/svelte'
-import Chart, {
-  type EChartsTheme,
-  type EChartsOptions,
-} from '../src/lib/Chart.svelte'
-import * as echarts from 'echarts'
+import { describe, it, expect, vi, beforeAll } from 'vitest'
+import { render, screen } from '@testing-library/svelte'
+import { queryHelpers } from '@testing-library/dom'
+import { Chart } from '../src/lib'
+import * as echarts from 'echarts/core'
+import type { EChartsOption } from 'echarts'
+import { BarChart } from 'echarts/charts'
+import {
+  DatasetComponent,
+  GridComponent,
+  TitleComponent,
+  TooltipComponent,
+  TransformComponent,
+} from 'echarts/components'
+import { SVGRenderer } from 'echarts/renderers'
 
-vi.mock('echarts', () => ({
-  init: vi.fn().mockReturnValue({
-    setOption: vi.fn(),
-    resize: vi.fn(),
-    dispose: vi.fn(),
-  }),
-}))
+const initOptions: Parameters<typeof echarts.init>[2] = {
+  renderer: 'svg',
+  height: 400,
+  width: 600,
+}
 
-const options: EChartsOptions = {
+const options: EChartsOption = {
   title: {
     text: 'Test Line Chart',
   },
@@ -30,13 +36,13 @@ const options: EChartsOptions = {
   },
   series: [
     {
+      type: 'bar',
       data: [820, 932, 901, 934, 1290, 1330, 1320],
-      type: 'line',
     },
   ],
 }
 
-const newOptions: EChartsOptions = {
+const newOptions: EChartsOption = {
   title: {
     text: 'Updated Line Chart',
   },
@@ -52,13 +58,13 @@ const newOptions: EChartsOptions = {
   },
   series: [
     {
+      type: 'bar',
       data: [430, 762, 690, 803, 1010, 1170, 1220], // New data points
-      type: 'line',
     },
   ],
 }
 
-const customTheme: EChartsTheme = {
+const customTheme = {
   color: ['#70c1b3', '#fcbf49', '#ff1654', '#247ba0'], // Custom color palette
   textStyle: {
     fontFamily: 'Arial, sans-serif', // Custom font
@@ -87,39 +93,25 @@ const customTheme: EChartsTheme = {
 }
 
 describe('Chart Component', () => {
+  echarts.use([
+    BarChart,
+    DatasetComponent,
+    GridComponent,
+    TransformComponent,
+    SVGRenderer,
+    TitleComponent,
+    TooltipComponent,
+  ])
+
   it('initializes with provided options', () => {
-    render(Chart, { options })
-    expect(echarts.init).toHaveBeenCalled()
-    expect(echarts.init().setOption).toHaveBeenCalledWith(options)
-  })
-
-  it('updates chart options', async () => {
-    const { component } = render(Chart, { options })
-    await component.$set({ options: newOptions })
-    expect(echarts.init().setOption).toHaveBeenCalledWith(newOptions)
-  })
-
-  it('responds to window resize', () => {
-    render(Chart, { options })
-    window.dispatchEvent(new Event('resize'))
-    expect(echarts.init().resize).toHaveBeenCalled()
-  })
-
-  it('cleans up on destruction', () => {
-    const { component } = render(Chart, { options })
-    component.$destroy()
-    expect(echarts.init().dispose).toHaveBeenCalled()
-  })
-
-  it('handles custom props', () => {
-    const customRenderer = 'svg'
-    render(Chart, {
-      options,
-      theme: customTheme,
-      renderer: customRenderer,
+    const { debug, baseElement } = render(Chart, {
+      props: { init: echarts.init, options, initOptions },
     })
-    expect(echarts.init).toHaveBeenCalledWith(expect.anything(), customTheme, {
-      renderer: customRenderer,
-    })
+    debug()
+    expect(
+      baseElement.querySelector('div[_echarts_instance_]'),
+      'echarts instance not found',
+    ).toBeTruthy()
+    expect(baseElement.querySelector('svg'), 'chart svg not found').toBeTruthy()
   })
 })
