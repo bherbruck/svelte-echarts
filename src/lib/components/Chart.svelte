@@ -29,11 +29,12 @@
       chart!.on(eventName, (event) => dispatch(eventName, event))
     })
 
-    window.addEventListener('resize', handleResize)
+    const resizeObserver = new ResizeObserver(handleResize)
+    resizeObserver.observe(element)
 
     return {
       destroy() {
-        window.removeEventListener('resize', handleResize)
+        resizeObserver.disconnect()
         chart!.dispose()
       },
     }
