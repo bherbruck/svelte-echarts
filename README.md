@@ -11,28 +11,40 @@ npm i -D svelte-echarts echarts
 ## ⌨️ Usage [demo](https://bherbruck.github.io/svelte-echarts/)
 
 ```html
-<script lang="ts">
-  import { Chart, type EChartsOptions } from 'svelte-echarts'
+<script>
+  import { Chart } from 'svelte-echarts'
 
-  const options: EChartsOptions = {
+  import { init, use } from 'echarts/core'
+  import type { EChartsOption } from 'echarts'
+  import { BarChart } from 'echarts/charts'
+  import { GridComponent, TitleComponent } from 'echarts/components'
+  import { CanvasRenderer } from 'echarts/renderers'
+
+  // now with tree-shaking
+  use([BarChart, GridComponent, CanvasRenderer, TitleComponent])
+
+  let options = {
+    title: {
+      text: 'ECharts Example',
+    },
     xAxis: {
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     },
     yAxis: {
       type: 'value',
     },
     series: [
       {
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
         type: 'bar',
+        data: [120, 200, 150, 80, 70, 110, 130],
       },
     ],
   }
 </script>
 
 <div class="app">
-  <Chart {options} />
+  <Chart {init} {options} />
 </div>
 
 <style>

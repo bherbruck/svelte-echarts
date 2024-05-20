@@ -32,7 +32,7 @@
 
   $: options = {
     title: {
-      text: 'ECharts example',
+      text: 'Tree-shaking ECharts Example',
     },
     xAxis: {
       type: 'category',
@@ -66,7 +66,7 @@
 </script>
 
 <svelte:head>
-  <title>Examples - svelte-echarts</title>
+  <title>Tree-shaking | svelte-echarts</title>
 </svelte:head>
 
 <Chart {init} {options} on:click={handleClick} />
