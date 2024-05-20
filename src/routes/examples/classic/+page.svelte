@@ -3,27 +3,8 @@
   import { Chart } from '$lib'
   import type { ECMouseEvent } from '$lib/constants/events'
 
-  import { init, use } from 'echarts/core'
+  import { init } from 'echarts'
   import type { EChartsOption } from 'echarts'
-  import { BarChart } from 'echarts/charts'
-  import {
-    DatasetComponent,
-    GridComponent,
-    TitleComponent,
-    TooltipComponent,
-    TransformComponent,
-  } from 'echarts/components'
-  import { CanvasRenderer } from 'echarts/renderers'
-
-  use([
-    BarChart,
-    DatasetComponent,
-    GridComponent,
-    TooltipComponent,
-    TransformComponent,
-    CanvasRenderer,
-    TitleComponent,
-  ])
 
   const randomData = (length = 1, multiplier = 1) =>
     Array.from({ length }, () => Math.floor(Math.random() * multiplier))
@@ -32,7 +13,7 @@
 
   $: options = {
     title: {
-      text: 'ECharts example',
+      text: 'Classic ECharts Example',
     },
     xAxis: {
       type: 'category',
@@ -66,7 +47,7 @@
 </script>
 
 <svelte:head>
-  <title>Examples - svelte-echarts</title>
+  <title>Classic Example - svelte-echarts</title>
 </svelte:head>
 
 <Chart {init} {options} on:click={handleClick} />
