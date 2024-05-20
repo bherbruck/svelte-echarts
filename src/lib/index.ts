@@ -1,2 +1,2 @@
 export { default as Chart } from '$lib/components/Chart.svelte'
-export type { ChartOptions } from '$lib/types'
+export type { ECMouseEvent, ECInteractionEvent } from '$lib/constants/events'
