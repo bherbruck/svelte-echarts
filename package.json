@@ -1,6 +1,12 @@
 {
   "name": "svelte-echarts",
   "version": "1.0.0-rc1",
+  "license": "MIT",
+  "description": "Svelte component for Apache ECharts",
+  "author": {
+    "name": "Brennen Herbruck",
+    "url": "https://github.com/bherbruck"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/bherbruck/svelte-echarts"
