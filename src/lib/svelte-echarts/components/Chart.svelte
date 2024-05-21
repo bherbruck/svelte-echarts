@@ -1,19 +1,30 @@
 <script lang="ts">
-  import type { init as baseInit, EChartsType as BaseEchartsType } from 'echarts'
+  import type {
+    init as baseInit,
+    EChartsType as BaseEchartsType,
+    EChartsOption,
+    SetOptionOpts,
+  } from 'echarts'
   import type { init as coreInit, EChartsType as CoreEchartsType } from 'echarts/core'
-  import type { EChartsOption, EChartsInitOpts } from 'echarts'
+  import type { EChartsInitOpts } from 'echarts'
+  import type { Action } from 'svelte/action'
   import { createEventDispatcher } from 'svelte'
   import { EVENT_NAMES, type EventHandlers } from '$lib/svelte-echarts/constants/events'
-  import type { Action } from 'svelte/action'
 
   export let init: typeof baseInit | typeof coreInit
   export let theme: string | object | null = 'light'
   export let initOptions: EChartsInitOpts = {}
 
   export let options: EChartsOption
+  export let notMerge: SetOptionOpts['notMerge'] = true // works better with svelte deviate from echarts default
+  export let lazyUpdate: SetOptionOpts['lazyUpdate'] = false
+  export let silent: SetOptionOpts['silent'] = false
+  export let replaceMerge: SetOptionOpts['replaceMerge'] = undefined
+  export let transition: SetOptionOpts['transition'] = undefined
+
   export let chart: (BaseEchartsType | CoreEchartsType) | undefined = undefined
 
-  $: chart && chart.setOption(options)
+  $: if (chart) chart.setOption(options, { notMerge, lazyUpdate, silent, replaceMerge, transition })
 
   const dispatch = createEventDispatcher<EventHandlers>()
 
