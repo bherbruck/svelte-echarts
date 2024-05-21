@@ -24,10 +24,13 @@
     TitleComponent,
   ])
 
-  const randomData = (length = 1, multiplier = 1) =>
-    Array.from({ length }, () => Math.floor(Math.random() * multiplier))
+  let interval = 1000
+  let numRecords = 10
 
-  let data = randomData(7, 100)
+  let data: { timestamp: Date; value: number }[] = Array.from({ length: numRecords }, (_, i) => ({
+    timestamp: new Date(Date.now() - (numRecords - i) * interval),
+    value: Math.random() * 100,
+  }))
 
   $: options = {
     title: {
@@ -35,7 +38,16 @@
     },
     xAxis: {
       type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      axisLabel: {
+        formatter: (value) =>
+          new Date(value).toLocaleTimeString('en-US', {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
+      },
+      data: data.map(({ timestamp }) => timestamp),
     },
     yAxis: {
       type: 'value',
@@ -43,13 +55,18 @@
     series: [
       {
         type: 'bar',
-        data,
+        data: data.map(({ value }) => value),
       },
     ],
   } as EChartsOption
 
   const updateData = () => {
-    data = randomData(7, 100)
+    data.shift()
+    data.push({
+      timestamp: new Date(),
+      value: Math.random() * 100,
+    })
+    data = [...data]
   }
 
   const handleClick = ({ detail }: CustomEvent<ECMouseEvent>) => {
@@ -57,8 +74,8 @@
   }
 
   onMount(() => {
-    const interval = setInterval(updateData, 10000)
-    return () => clearInterval(interval)
+    const id = setInterval(updateData, interval)
+    return () => clearInterval(id)
   })
 </script>
 
