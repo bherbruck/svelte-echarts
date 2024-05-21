@@ -15,7 +15,6 @@ npm i -D svelte-echarts echarts
   import { Chart } from 'svelte-echarts'
 
   import { init, use } from 'echarts/core'
-  import type { EChartsOption } from 'echarts'
   import { BarChart } from 'echarts/charts'
   import { GridComponent, TitleComponent } from 'echarts/components'
   import { CanvasRenderer } from 'echarts/renderers'
