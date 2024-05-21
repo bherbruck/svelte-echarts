@@ -16,7 +16,7 @@
   export let initOptions: EChartsInitOpts = {}
 
   export let options: EChartsOption
-  export let notMerge: SetOptionOpts['notMerge'] = true // works better with svelte deviate from echarts default
+  export let notMerge: SetOptionOpts['notMerge'] = true // deviation from ECharts default, works better with Svelte
   export let lazyUpdate: SetOptionOpts['lazyUpdate'] = false
   export let silent: SetOptionOpts['silent'] = false
   export let replaceMerge: SetOptionOpts['replaceMerge'] = undefined
