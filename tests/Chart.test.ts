@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest'
 import { render, screen } from '@testing-library/svelte'
 import { queryHelpers } from '@testing-library/dom'
-import { Chart } from '../src/lib'
+import { Chart } from '$lib/svelte-echarts'
 import * as echarts from 'echarts/core'
 import type { EChartsOption } from 'echarts'
 import { BarChart } from 'echarts/charts'

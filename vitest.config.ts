@@ -10,6 +10,7 @@ export default defineConfig({
   resolve: {
     alias: {
       $lib: '/src/lib',
+      'svelte-echarts': '/src/lib/svelte-echarts',
     },
   },
 })

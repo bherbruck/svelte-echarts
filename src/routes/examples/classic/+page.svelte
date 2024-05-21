@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { Chart } from '$lib'
-  import type { ECMouseEvent } from '$lib/constants/events'
+  import { Chart } from 'svelte-echarts'
 
   import { init } from 'echarts'
   import type { EChartsOption } from 'echarts'
@@ -34,14 +33,8 @@
     data = randomData(7, 100)
   }
 
-  let interval: number
-
-  const handleClick = ({ detail }: CustomEvent<ECMouseEvent>) => {
-    alert(`${detail.name} ${detail.value}`)
-  }
-
   onMount(() => {
-    interval = setInterval(updateData, 10000)
+    const interval = setInterval(updateData, 10000)
     return () => clearInterval(interval)
   })
 </script>
@@ -50,4 +43,4 @@
   <title>Classic Example - svelte-echarts</title>
 </svelte:head>
 
-<Chart {init} {options} on:click={handleClick} />
+<Chart {init} {options} />

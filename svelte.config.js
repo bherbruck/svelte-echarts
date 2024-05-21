@@ -10,6 +10,10 @@ const config = {
       precompress: false,
       strict: false,
     }),
+    alias: {
+      'svelte-echarts': './src/lib/svelte-echarts',
+      'svelte-echarts/*': './src/lib/svelte-echarts/*',
+    },
   },
 }
 

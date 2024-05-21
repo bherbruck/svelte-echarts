@@ -3,7 +3,7 @@
   import type { init as coreInit, EChartsType as CoreEchartsType } from 'echarts/core'
   import type { EChartsOption, EChartsInitOpts } from 'echarts'
   import { createEventDispatcher } from 'svelte'
-  import { EVENT_NAMES, type EventHandlers } from '$lib/constants/events'
+  import { EVENT_NAMES, type EventHandlers } from '$lib/svelte-echarts/constants/events'
   import type { Action } from 'svelte/action'
 
   export let init: typeof baseInit | typeof coreInit
