@@ -1,6 +1,6 @@
 {
   "name": "svelte-echarts",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "license": "MIT",
   "description": "Svelte component for Apache ECharts",
   "author": {
