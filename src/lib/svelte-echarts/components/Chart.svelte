@@ -9,6 +9,7 @@
   import type { EChartsInitOpts } from 'echarts'
   import { EVENT_NAMES, type EventHandlers } from '$lib/svelte-echarts/constants/events'
   import { onMount } from 'svelte'
+  import type { HTMLAttributes } from 'svelte/elements'
 
   let {
     init,
@@ -33,7 +34,12 @@
     replaceMerge?: SetOptionOpts['replaceMerge']
     transition?: SetOptionOpts['transition']
     chart?: BaseEchartsType | CoreEchartsType
-  } & EventHandlers = $props()
+  } & EventHandlers &
+    OmitHandlers<HTMLAttributes<HTMLDivElement>> = $props()
+
+  type OmitHandlers<T> = {
+    [K in keyof T as K extends `on${string}` ? never : K]: T[K]
+  }
 
   let element: HTMLDivElement
 
@@ -70,8 +76,19 @@
     }
   })
 
-  const otherProps = $derived(Object.keys(restProps).filter((key) => !key.startsWith('on')))
+  const otherProps = $derived(
+    Object.keys(restProps)
+      .filter((key) => !key.startsWith('on'))
+      .reduce(
+        (r, k) => ({ ...r, [k]: (restProps as any)[k] }),
+        {} as HTMLAttributes<HTMLDivElement>,
+      ),
+  )
 </script>
 
 <!-- restProps is currently broken with typescript -->
-<div bind:this={element} style="width: 100%; height: 100%" {...otherProps}></div>
+<div
+  bind:this={element}
+  style="width: 100%; height: 100%; {otherProps.style}"
+  {...otherProps}
+></div>

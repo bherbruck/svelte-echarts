@@ -85,4 +85,4 @@
   <title>Examples - svelte-echarts</title>
 </svelte:head>
 
-<Chart init={init as any} options={options as any} onclick={handleClick} />
+<Chart {init} {options} onclick={handleClick} />
