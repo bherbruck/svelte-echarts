@@ -1,8 +1,9 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render, type Component } from 'vitest-browser-svelte'
+import { describe, it, expect } from 'vitest'
+import { render } from 'vitest-browser-svelte'
 import { Chart } from '$lib/svelte-echarts'
+import ChartTest from './Chart.test.svelte'
 import * as echarts from 'echarts/core'
-import type { EChartsOption } from 'echarts'
+import type { EChartsOption, EChartsType } from 'echarts'
 import { BarChart } from 'echarts/charts'
 import {
   DatasetComponent,
@@ -12,7 +13,8 @@ import {
   TransformComponent,
 } from 'echarts/components'
 import { SVGRenderer } from 'echarts/renderers'
-import type { ComponentType } from 'svelte'
+import { get, writable, type Writable } from 'svelte/store'
+import type { SvelteComponent } from 'svelte'
 
 const initOptions: Parameters<typeof echarts.init>[2] = {
   renderer: 'svg',
@@ -109,8 +111,21 @@ describe('Chart Component', () => {
       options,
       initOptions,
     })
-    screen.debug()
     expect(screen.container.querySelector('div[_echarts_instance_]')).not.undefined
     expect(screen.container.querySelector('svg')).not.undefined
+  })
+
+  it('two-way binds chart', async () => {
+    // ref: https://testing-library.com/docs/svelte-testing-library/example/#two-way-data-binding
+    const chartStore = writable<EChartsType>()
+    const screen = render(ChartTest, {
+      init: echarts.init,
+      options,
+      chartStore,
+    })
+    expect(get(chartStore)).not.undefined
+    expect(screen.getByText('Updated Line Chart').query()).null
+    get(chartStore).setOption(newOptions)
+    expect(screen.getByText('Updated Line Chart').query()).not.null
   })
 })

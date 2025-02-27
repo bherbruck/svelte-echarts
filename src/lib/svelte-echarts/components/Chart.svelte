@@ -10,6 +10,7 @@
   import { EVENT_NAMES, type EventHandlers } from '$lib/svelte-echarts/constants/events'
   import { onMount } from 'svelte'
   import type { HTMLAttributes } from 'svelte/elements'
+  import type { ChartProps } from 'svelte-echarts/types'
 
   let {
     init,
@@ -21,25 +22,9 @@
     silent = false,
     replaceMerge,
     transition,
-    chart,
+    chart = $bindable(),
     ...restProps
-  }: {
-    init: typeof baseInit | typeof coreInit
-    options: EChartsOption
-    theme?: 'light' | 'dark' | object
-    initOptions?: EChartsInitOpts
-    notMerge?: SetOptionOpts['notMerge']
-    lazyUpdate?: SetOptionOpts['lazyUpdate']
-    silent?: SetOptionOpts['silent']
-    replaceMerge?: SetOptionOpts['replaceMerge']
-    transition?: SetOptionOpts['transition']
-    chart?: BaseEchartsType | CoreEchartsType
-  } & EventHandlers &
-    OmitHandlers<HTMLAttributes<HTMLDivElement>> = $props()
-
-  type OmitHandlers<T> = {
-    [K in keyof T as K extends `on${string}` ? never : K]: T[K]
-  }
+  }: ChartProps = $props()
 
   let element: HTMLDivElement
 
