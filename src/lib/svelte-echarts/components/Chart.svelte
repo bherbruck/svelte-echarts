@@ -49,15 +49,16 @@
     chart = init(element, theme, initOptions)
 
     EVENT_NAMES.forEach((eventName) => {
-      // @ts-expect-error
+      // @ts-ignore
       chart!.on(eventName, (event) => {
-        // @ts-expect-error
+        // @ts-ignore
         restProps['on' + eventName]?.(event)
       })
     })
   }
 
   onMount(() => {
+    initChart()
     const resizeObserver = new ResizeObserver(() => {
       chart?.resize()
     })
