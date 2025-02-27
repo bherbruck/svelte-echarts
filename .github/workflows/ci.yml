@@ -8,23 +8,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          version: 'latest'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install && pnpm dlx playwright install
 
       - name: Build
-        run: npm run build --if-present
+        run: pnpm build
 
       - name: Run tests
-        run: npm test
+        run: pnpm test
