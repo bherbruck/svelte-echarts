@@ -4,8 +4,12 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 export default defineConfig({
   plugins: [svelte()],
   test: {
-    globals: true,
-    environment: 'jsdom',
+    browser: {
+      provider: 'playwright',
+      enabled: true,
+      headless: true,
+      instances: [{ browser: 'chromium' }],
+    },
   },
   resolve: {
     alias: {
