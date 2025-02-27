@@ -11,3 +11,5 @@ declare global {
 }
 
 export {}
+
+/// <reference types="@vitest/browser/matchers" />

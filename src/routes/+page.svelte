@@ -27,12 +27,14 @@
   let interval = 1000
   let numRecords = 10
 
-  let data: { timestamp: Date; value: number }[] = Array.from({ length: numRecords }, (_, i) => ({
-    timestamp: new Date(Date.now() - (numRecords - i) * interval),
-    value: Math.random() * 100,
-  }))
+  let data: { timestamp: Date; value: number }[] = $state(
+    Array.from({ length: numRecords }, (_, i) => ({
+      timestamp: new Date(Date.now() - (numRecords - i) * interval),
+      value: Math.random() * 100,
+    })),
+  )
 
-  $: options = {
+  let options = $derived({
     title: {
       text: 'ECharts example',
     },
@@ -58,7 +60,7 @@
         data: data.map(({ value }) => value),
       },
     ],
-  } as EChartsOption
+  } as EChartsOption)
 
   const updateData = () => {
     data.shift()
@@ -69,8 +71,8 @@
     data = [...data]
   }
 
-  const handleClick = ({ detail }: CustomEvent<ECMouseEvent>) => {
-    alert(`${detail.name} ${detail.value}`)
+  const handleClick = (event: ECMouseEvent) => {
+    alert(`${event.name} ${event.value}`)
   }
 
   onMount(() => {
@@ -83,4 +85,4 @@
   <title>Examples - svelte-echarts</title>
 </svelte:head>
 
-<Chart {init} {options} on:click={handleClick} />
+<Chart {init} {options} onclick={handleClick} />

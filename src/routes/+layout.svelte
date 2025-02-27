@@ -1,6 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import '../app.css'
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   // let transferSize: number | undefined
 
@@ -32,7 +37,7 @@
     <span>Error: {error.message}</span>
   {/await}
 
-  <slot />
+  {@render children?.()}
 </div>
 
 <style>

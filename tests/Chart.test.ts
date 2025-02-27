@@ -1,6 +1,5 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest'
-import { render, screen } from '@testing-library/svelte'
-import { queryHelpers } from '@testing-library/dom'
+import { describe, it, expect, vi } from 'vitest'
+import { render, type Component } from 'vitest-browser-svelte'
 import { Chart } from '$lib/svelte-echarts'
 import * as echarts from 'echarts/core'
 import type { EChartsOption } from 'echarts'
@@ -13,6 +12,7 @@ import {
   TransformComponent,
 } from 'echarts/components'
 import { SVGRenderer } from 'echarts/renderers'
+import type { ComponentType } from 'svelte'
 
 const initOptions: Parameters<typeof echarts.init>[2] = {
   renderer: 'svg',
@@ -92,16 +92,6 @@ const customTheme = {
   },
 }
 
-// Mock the ResizeObserver
-const ResizeObserverMock = vi.fn(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-}))
-
-// Stub the global ResizeObserver
-vi.stubGlobal('ResizeObserver', ResizeObserverMock)
-
 describe('Chart Component', () => {
   echarts.use([
     BarChart,
@@ -113,15 +103,14 @@ describe('Chart Component', () => {
     TooltipComponent,
   ])
 
-  it('initializes with provided options', () => {
-    const { debug, baseElement } = render(Chart, {
-      props: { init: echarts.init, options, initOptions },
+  it('initializes with provided options', async () => {
+    const screen = render(Chart, {
+      init: echarts.init,
+      options,
+      initOptions,
     })
-    debug()
-    expect(
-      baseElement.querySelector('div[_echarts_instance_]'),
-      'echarts instance not found',
-    ).toBeTruthy()
-    expect(baseElement.querySelector('svg'), 'chart svg not found').toBeTruthy()
+    screen.debug()
+    expect(screen.container.querySelector('div[_echarts_instance_]')).not.undefined
+    expect(screen.container.querySelector('svg')).not.undefined
   })
 })

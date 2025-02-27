@@ -8,9 +8,9 @@
   const randomData = (length = 1, multiplier = 1) =>
     Array.from({ length }, () => Math.floor(Math.random() * multiplier))
 
-  let data = randomData(7, 100)
+  let data = $state(randomData(7, 100))
 
-  $: options = {
+  let options = $derived({
     title: {
       text: 'Classic ECharts Example',
     },
@@ -27,7 +27,7 @@
         data,
       },
     ],
-  } as EChartsOption
+  } as EChartsOption)
 
   const updateData = () => {
     data = randomData(7, 100)
