@@ -18,7 +18,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install && pnpm playwright install --with-deps
 
       - name: Build
         run: pnpm build
