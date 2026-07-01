@@ -54,11 +54,9 @@
       if (!chart) return
 
       for (const entry of entries) {
-        const { blockSize, inlineSize } = entry.borderBoxSize[0]
-        const chartWidth = chart.getWidth()
-        const chartHeight = chart.getHeight()
+        const { width, height } = entry.contentRect
 
-        if (chartHeight !== blockSize || chartWidth !== inlineSize) {
+        if (chart.getWidth() !== width || chart.getHeight() !== height) {
           chart.resize()
         }
       }
