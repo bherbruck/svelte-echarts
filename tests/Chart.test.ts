@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render } from 'vitest-browser-svelte'
 import { Chart } from '$lib/svelte-echarts'
 import ChartTest from './Chart.test.svelte'
@@ -127,5 +127,48 @@ describe('Chart Component', () => {
     expect(screen.getByText('Updated Line Chart').query()).null
     get(chartStore).setOption(newOptions)
     expect(screen.getByText('Updated Line Chart').query()).not.null
+  })
+
+  it('does not call chart.resize() on mount', async () => {
+    let chartInstance: ReturnType<typeof echarts.init> | undefined
+    const wrappedInit: typeof echarts.init = (dom, theme, opts) => {
+      const instance = echarts.init(dom, theme, opts)
+      chartInstance = instance
+      return instance
+    }
+
+    render(Chart, { init: wrappedInit, options })
+
+    // Spy synchronously before any ResizeObserver callback can fire
+    const resizeSpy = vi.spyOn(chartInstance!, 'resize')
+
+    // Wait long enough for any async ResizeObserver callbacks to have run
+    await new Promise<void>((resolve) => setTimeout(resolve, 200))
+
+    expect(resizeSpy).not.toHaveBeenCalled()
+  })
+
+  it('calls chart.resize() when the DOM element size changes', async () => {
+    let chartInstance: ReturnType<typeof echarts.init> | undefined
+    const wrappedInit: typeof echarts.init = (dom, theme, opts) => {
+      const instance = echarts.init(dom, theme, opts)
+      chartInstance = instance
+      return instance
+    }
+
+    const screen = render(Chart, { init: wrappedInit, options })
+
+    // Spy synchronously before any ResizeObserver callback can fire
+    const resizeSpy = vi.spyOn(chartInstance!, 'resize')
+
+    // Force a layout change on the chart's root div to trigger ResizeObserver
+    const chartDiv = screen.container.querySelector('div[_echarts_instance_]') as HTMLElement
+    chartDiv.style.width = '800px'
+    chartDiv.style.height = '600px'
+
+    // Wait for the ResizeObserver callback to run
+    await new Promise<void>((resolve) => setTimeout(resolve, 200))
+
+    expect(resizeSpy).toHaveBeenCalled()
   })
 })
