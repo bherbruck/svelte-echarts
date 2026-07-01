@@ -50,8 +50,18 @@
 
   onMount(() => {
     initChart()
-    const resizeObserver = new ResizeObserver(() => {
-      chart?.resize()
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (!chart) return
+
+      for (const entry of entries) {
+        const { blockSize, inlineSize } = entry.borderBoxSize[0]
+        const chartWidth = chart.getWidth()
+        const chartHeight = chart.getHeight()
+
+        if (chartHeight !== blockSize || chartWidth !== inlineSize) {
+          chart.resize()
+        }
+      }
     })
     resizeObserver.observe(element)
 
